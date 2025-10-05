@@ -87,7 +87,7 @@ export default function LoginForm() {
           type="submit"
           className="w-full py-2 border !border-teal-600  !bg-gradient-to-r from-blue-400 via-sky-500 to-cyan-400 hover:bg-blue-200 text-white rounded-xl transition duration-200"
         >
-          {loging?'Login.....':'Login'}
+          {loging ? "Login....." : "Login"}
         </button>
       </div>
       <div className="flex flex-col justify-center ">

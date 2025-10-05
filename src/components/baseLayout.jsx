@@ -7,11 +7,11 @@ export default function BaseLayout({ children }) {
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
   return (
-    <div className="min-h-screen w-screen flex bg-zinc-100 dark:bg-zinc-950">
+    <div className="min-h-screen w-screen flex bg-zinc-100 ">
       <Header toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isOpen} />
 
-      <main className="flex-1 p-4 pt-[60px] transition-all duration-300 overflow-y-auto bg-zinc-100 dark:bg-zinc-950">
+      <main className="flex-1 p-4 pt-[60px] transition-all duration-300 overflow-y-auto bg-zinc-100 ">
         <div className="min-h-[calc(100vh-80px)]">{children}</div>
       </main>
     </div>

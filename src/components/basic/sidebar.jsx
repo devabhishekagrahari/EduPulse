@@ -14,7 +14,7 @@ export default function Sidebar({ isOpen }) {
   return (
     <div
       className={`flex flex-col justify-between pt-20 top-0 left-0 min-h-screen 
-        bg-gradient-to-r from-teal-200 via-teal-300 to-teal-400 
+        bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-400 
         transition-all duration-300
         ${isOpen ? "w-48" : "w-16"}
       `}
@@ -25,7 +25,7 @@ export default function Sidebar({ isOpen }) {
           to="/generate-paper"
           className="flex items-center space-x-2 bg-white rounded-xl p-3 hover:bg-teal-50"
         >
-          <FilePlus size={20} className="text-teal-400" />
+          <FilePlus size={20} className="text-blue-400" />
           {isOpen && <span className="text-zinc-800">Generate</span>}
         </Link>
 
@@ -33,7 +33,7 @@ export default function Sidebar({ isOpen }) {
           to="/view-paper"
           className="flex items-center space-x-2 bg-white rounded-xl p-3 hover:bg-teal-50"
         >
-          <FileText size={20} className="text-teal-400" />
+          <FileText size={20} className="text-blue-400" />
           {isOpen && <span className="text-zinc-800">View Paper</span>}
         </Link>
 
@@ -41,7 +41,7 @@ export default function Sidebar({ isOpen }) {
           to="/add-question"
           className="flex items-center space-x-2 bg-white rounded-xl p-3 hover:bg-teal-50"
         >
-          <PlusCircle size={20} className="text-teal-400" />
+          <PlusCircle size={20} className="text-blue-400" />
           {isOpen && <span className="text-zinc-800">Add Question</span>}
         </Link>
 
@@ -49,7 +49,7 @@ export default function Sidebar({ isOpen }) {
           to="/view-question"
           className="flex items-center space-x-2 bg-white rounded-xl p-3 hover:bg-teal-50"
         >
-          <Search size={20} className="text-teal-400" />
+          <Search size={20} className="text-blue-400" />
           {isOpen && <span className="text-zinc-800">View Questions</span>}
         </Link>
 
@@ -57,7 +57,7 @@ export default function Sidebar({ isOpen }) {
           to="/dashboard"
           className="flex items-center space-x-2 bg-white rounded-xl p-3 hover:bg-teal-50"
         >
-          <LayoutDashboard size={20} className="text-teal-400" />
+          <LayoutDashboard size={20} className="text-blue-400" />
           {isOpen && <span className="text-zinc-800">Dashboard</span>}
         </Link>
       </nav>
