@@ -21,7 +21,7 @@ export default function SignUpForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitting sign-up data:", form);
-    // TODO: Send form to Firebase or backend
+
   };
 
   return (
