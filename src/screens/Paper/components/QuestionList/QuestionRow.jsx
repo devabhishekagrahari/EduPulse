@@ -63,13 +63,13 @@ export function QuestionRow({
         <td>
           <button
             onClick={() => handleAddQuestion(q)}
-            className="mt-4 inline-flex items-center text-teal-600 font-semibold hover:text-teal-700 transition-colors"
+            className="mt-4 inline-flex items-center text-blue-600 font-semibold hover:text-teal-700 transition-colors"
           >
             <span className="p-3 self-center">Add</span>
           </button>
           <button
             onClick={() => handleDeleteQuestion(q._id)}
-            className="mt-4 inline-flex items-center text-teal-600 font-semibold hover:text-teal-700 transition-colors"
+            className="mt-4 inline-flex items-center text-red-600 font-semibold hover:text-teal-700 transition-colors"
           >
             <span className="p-3 self-center">Delete</span>
           </button>

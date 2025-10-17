@@ -16,12 +16,12 @@ export function QuestionFilters({ filters, setFilters, dropdowns, search, setSea
           placeholder="Search questions by keyword, ID or content..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-2/3 px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-teal-500"
+          className="w-2/3 px-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500"
         />
    
         <Link
           to="/add-question"
-         className="mt-2 flex px-4 py-2 text-xl !bg-teal-600 !text-white rounded  transition"
+         className="mt-2 flex px-4 py-2 text-xl !bg-blue-600 !text-white rounded  transition"
         >
           + Add Question
         </Link>
@@ -35,7 +35,7 @@ export function QuestionFilters({ filters, setFilters, dropdowns, search, setSea
             name={field}
             value={filters[field]}
             onChange={handleChange}
-            className="px-3 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-teal-500"
+            className="px-3 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500"
           >
             <option value="">Select {field}</option>
             {dropdowns[field+"s"]?.map((val) => (

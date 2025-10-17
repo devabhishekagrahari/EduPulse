@@ -206,7 +206,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                 onChange={handleChange}
                 placeholder="Enter your question"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                         focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                         focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 required
               />
             </div>
@@ -225,14 +225,14 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                     onChange={(e) => handleOptionChange(i, e.target.value)}
                     placeholder={`Option ${i + 1}`}
                     className="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 
-                             focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                             focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                   />
                 ))}
               </div>
               <button
                 type="button"
                 onClick={addOption}
-                className="!bg-teal-600 text-white px-4 py-2 rounded-lg mt-3 w-fit"
+                className="bg-gradient-to-r from-blue-500 via-sky-400 to-[#27E9F7] text-white px-4 py-2 rounded-lg mt-3 w-fit"
               >
                 + Add Option
               </button>
@@ -250,7 +250,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                 onChange={handleChange}
                 placeholder="Correct Answer"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                         focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                         focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 required
               />
             </div>
@@ -267,7 +267,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                 onChange={handleChange}
                 placeholder="Optional image URL"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                         focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                         focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
               />
             </div>
 
@@ -281,7 +281,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                 onChange={handleChange}
                 placeholder="Positive Marks"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                         focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                         focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
               />
             </div>
 
@@ -297,7 +297,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                 onChange={handleChange}
                 placeholder="Negative Marks (optional)"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                         focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                         focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
               />
             </div>
           </div>
@@ -313,7 +313,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.unit}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 >
                   <option value="">Select Unit</option>
                   {dropdowns.units.map((u) => (
@@ -329,7 +329,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.unit}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 />
               </div>
             </div>
@@ -345,7 +345,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.chapter}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 >
                   <option value="">Select Chapter</option>
                   {dropdowns.chapters.map((c) => (
@@ -361,7 +361,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.chapter}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 />
               </div>
             </div>
@@ -377,7 +377,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.subChapter}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 >
                   <option value="">Select Sub-Chapter</option>
                   {dropdowns.subChapters.map((s) => (
@@ -393,7 +393,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.subChapter}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 />
               </div>
             </div>
@@ -409,7 +409,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.subSubChapter}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 >
                   <option value="">Select Sub-Sub-Chapter</option>
                   {dropdowns.subSubChapters.map((ss) => (
@@ -425,7 +425,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.subSubChapter}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 />
               </div>
             </div>
@@ -466,7 +466,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.typeOfQuestion}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 >
                   <option value="">Select type-Of-Question</option>
                   {dropdowns.typeOfQuestion.map((ss) => (
@@ -482,7 +482,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                   value={formData.typeOfQuestion}
                   onChange={handleChange}
                   className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
-                           focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
                 />
               </div>
             </div>
@@ -490,7 +490,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
             {/* Submit Button */}
             <button
               type="submit"
-              className="!bg-teal-600 text-white px-4 py-2 rounded p-2 w-fit"
+              className=" bg-gradient-to-r from-blue-500 via-sky-400 to-[#27E9F7] text-white px-4 py-2 rounded p-2 w-fit"
             >
               Add Question
             </button>

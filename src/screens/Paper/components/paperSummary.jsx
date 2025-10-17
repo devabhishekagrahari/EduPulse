@@ -121,7 +121,7 @@ const handleSubmit = async (e) => {
         <input
           type="text"
           className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-            focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+            focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
           value={templateName}
           onChange={(e) => setTemplateName(e.target.value)}
           placeholder="Enter your template name"
@@ -134,7 +134,7 @@ const handleSubmit = async (e) => {
         <input
           type="text"
           className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-            focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+            focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
           value={paperName}
           onChange={(e) => setPaperName(e.target.value)}
           placeholder="Enter your paper name"
@@ -147,7 +147,7 @@ const handleSubmit = async (e) => {
         <input
           type="number"
           className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-            focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+            focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
           value={totalMarks}
           onChange={(e) => setTotalMarks(parseInt(e.target.value))}
           placeholder="Enter the maximun marks"
@@ -164,7 +164,7 @@ const handleSubmit = async (e) => {
             <input
             type="number"
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-            focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+            focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
             value={hours}
             onChange={(e) => setHours(parseInt(e.target.value) || 0)}
             placeholder="Duration in hours"
@@ -178,7 +178,7 @@ const handleSubmit = async (e) => {
           <input
             type="number"
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-            focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+            focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
             value={minutes}
             onChange={(e) => setMinutes(parseInt(e.target.value) || 0)}
             placeholder="Duration in minutes"
@@ -193,7 +193,7 @@ const handleSubmit = async (e) => {
         <input
           type="text"
           className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 
-            focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
+            focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
           value={instructions}
           onChange={(e) => setPaperInstructions(e.target.value)}
           placeholder="Enter the maximun marks"
@@ -202,7 +202,7 @@ const handleSubmit = async (e) => {
 
       <div className="overflow-x-auto mb-4">
         <table className="min-w-full border border-gray-300 text-sm">
-          <thead className="bg-teal-100 text-teal-800 uppercase tracking-wider">
+          <thead className="bg-sky-200 text-blue-800 uppercase tracking-wider">
             <tr>
               <th className="border px-4 py-2 text-left">Section</th>
               <th className="border px-4 py-2 text-left">Section Marks</th>
@@ -213,7 +213,7 @@ const handleSubmit = async (e) => {
           </thead>
           <tbody>
             {sections.map((section, index) => (
-              <tr key={index} className="hover:bg-teal-50 align-top">
+              <tr key={index} className="hover:bg-blue-50 align-top">
                 <td className="border px-2 py-1">
                   <input
                     type="text"
@@ -279,14 +279,14 @@ const handleSubmit = async (e) => {
         <button
           type="button"
           onClick={handleAddSection}
-          className="mt-2 flex px-4 py-2 text-xl !bg-teal-600 text-white rounded hover:bg-teal-700 transition"
+          className="mt-2 flex px-4 py-2 text-xl bg-gradient-to-r from-blue-500 via-sky-400 to-[#27E9F7] text-white rounded hover:bg-teal-700 transition"
         >
           + Add Section
         </button>
 
         <button
           type="submit"
-          className="mt-2 flex px-4 py-2 text-xl !bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="mt-2 flex px-4 py-2 text-xl bg-gradient-to-r from-blue-500 via-sky-400 to-[#27E9F7] text-white rounded hover:bg-blue-700 transition"
         >
           💾 Save Paper
         </button>
