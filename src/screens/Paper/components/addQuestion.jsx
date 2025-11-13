@@ -93,7 +93,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
         subChapterSet.add(q.subChapter);
       if (formData.subChapter && q.subChapter === formData.subChapter)
         subSubChapterSet.add(q.subSubChapter);
-      if (q.type) typeSet.add(q.type);
+      if (q.type) typeOfQuestion.add(q.type);
     });
 
     setDropdowns((prev) => ({
