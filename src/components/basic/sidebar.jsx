@@ -60,6 +60,14 @@ export default function Sidebar({ isOpen }) {
           <LayoutDashboard size={20} className="text-blue-400" />
           {isOpen && <span className="text-zinc-800">Dashboard</span>}
         </Link>
+
+        <Link
+          to="/automated-paper"
+          className="flex items-center space-x-2 bg-white rounded-xl p-3 hover:bg-teal-50"
+        >
+          <LayoutDashboard size={20} className="text-blue-400" />
+          {isOpen && <span className="text-zinc-800">Generate Random Quiz</span>}
+        </Link>
       </nav>
 
       {/* Bottom nav */}

@@ -238,7 +238,7 @@ export default function ViewPapers() {
           doc.text(`${secIndex + 1}.${qIndex + 1}) ${q.questionText}`, 10, y);
           y += 7;
 
-          q.options.forEach((opt, optIndex) => {
+          (q.options ?? []).forEach((opt, optIndex) => {
             doc.text(`   ${String.fromCharCode(65 + optIndex)}. ${opt}`, 15, y);
             y += 6;
           });
@@ -647,13 +647,20 @@ export default function ViewPapers() {
                       </label>
                       <input
                         className="border p-1 w-full mb-1 text-sm"
-                        value={q.options.join(", ")}
+                        // 1. Sanitize the 'value' prop: If q.options is null/undefined, use an empty array []
+                        //    before calling .join(", "). This prevents a crash on initial render.
+                        value={(q.options ?? []).join(", ")}
                         onChange={(e) =>
                           handleQuestionChange(
                             sIdx,
                             qIdx,
                             "options",
-                            e.target.value.split(",").map((opt) => opt.trim())
+                            // 2. Sanitize the input value:
+                            e.target.value
+                              .split(",")
+                              .map((opt) => opt.trim())
+                              // Filters out empty strings ("")
+                              .filter(Boolean)
                           )
                         }
                       />

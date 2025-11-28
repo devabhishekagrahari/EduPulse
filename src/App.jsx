@@ -12,6 +12,7 @@ import AddQuestionForm from './screens/Paper/components/addQuestion'
 import { QuestionList }from './screens/Paper/components/QuestionList/QuestionList'
 //import { QuestionList }from './screens/Paper/components/questionList'
 import ViewPapers from './screens/Paper/paperList'
+import AutomatedPaper from './screens/AutomatedPaper/automatedPaper'
  
 function App() {
   return ( 
@@ -29,6 +30,7 @@ function App() {
         <Route path='/view-question' element={<BaseLayout><QuestionList mode="full"/></BaseLayout>}/>
         <Route path='/generate-paper' element={<BaseLayout><GeneratePaper/></BaseLayout>}/>
         <Route path='/view-paper' element={<BaseLayout><ViewPapers/></BaseLayout>}/>
+        <Route path='/automated-paper' element={<BaseLayout><AutomatedPaper/></BaseLayout>}/>
       </Routes>
       
     </BrowserRouter>
