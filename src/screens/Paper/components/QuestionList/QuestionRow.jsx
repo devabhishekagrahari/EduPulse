@@ -59,28 +59,28 @@ export function QuestionRow({
           </span>
         </td>
 
-        <td className="p-3">{q.category || "Theory"}</td>
-        <td>
+        {/* <td className="p-3">{q.category || "Theory"}</td> */}
+        <td className="p-3 flex justify-center items-center space-x-2">
           <button
             onClick={() => handleAddQuestion(q)}
-            className="mt-4 inline-flex items-center text-blue-600 font-semibold hover:text-teal-700 transition-colors"
+            className=" inline-flex items-center text-blue-600 font-semibold hover:text-teal-700 transition-colors"
           >
-            <span className="p-3 self-center">Add</span>
+            <span className="p-1 self-center">Add</span>
           </button>
           <button
             onClick={() => handleDeleteQuestion(q._id)}
-            className="mt-4 inline-flex items-center text-red-600 font-semibold hover:text-teal-700 transition-colors"
+            className=" inline-flex items-center text-red-600 font-semibold hover:text-teal-700 transition-colors"
           >
-            <span className="p-3 self-center">Delete</span>
+            <span className="p-1 self-center">Delete</span>
           </button>
         </td>
 
         {mode === "full" && (
           <>
-            <td className="p-3">
+            {/* <td className="p-3">
               {new Date(q.timestamp).toLocaleDateString()}
-            </td>
-            <td className="p-3 flex gap-2">
+            </td> */}
+            <td className="p-3 flex-row justify-center items-center space-x-2">
               <button className="p-1 hover:text-blue-600 hover:scale-110 transition">
                 <Eye size={16} />
               </button>

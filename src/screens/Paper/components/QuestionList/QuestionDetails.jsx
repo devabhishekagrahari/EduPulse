@@ -15,6 +15,10 @@ export function QuestionDetails({ q, handleAddQuestion }) {
 
         {/* Question Meta Info */}
         <div className="grid grid-cols-2 gap-y-2 gap-x-6 text-sm">
+                    <div>
+            <span className="font-semibold">Questions:</span>{" "}
+            {q.questionText}
+          </div>
           <div>
             <span className="font-semibold">Options:</span>{" "}
             {q.options?.join(", ")}

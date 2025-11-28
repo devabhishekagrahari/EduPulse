@@ -125,11 +125,11 @@ export function QuestionList({ mode = "full" }) {
               <th className="p-3 text-left">Question</th>
               <th className="p-3">Type</th>
               <th className="p-3">Difficulty</th>
-              <th className="p-3">Category</th>
-              <th className="p-3">Add Question Item</th>
+              {/* <th className="p-3">Category</th> */}
+              <th className="p-8">Add Question Item</th>
               {mode === "full" && (
                 <>
-                  <th className="p-3">Last Modified</th>
+                  {/* <th className="p-3">Last Modified</th> */}
                   <th className="p-3">Actions</th>
                 </>
               )}

@@ -19,6 +19,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
     subChapter: "",
     subSubChapter: "",
     typeOfQuestion: "",
+    difficultyLevel: "",
   });
 
   const handleChange = (e) => {
@@ -42,7 +43,8 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
     chapters: [],
     subChapters: [],
     subSubChapters: [],
-    typeOfQuestion:[],
+    typeOfQuestion: [],
+    difficultyLevel: ["Easy", "Medium-I","Medium-II", "Hard-I","Hard-II","Hard-III"],
   });
 
   useEffect(() => {
@@ -85,7 +87,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
     const chapterSet = new Set();
     const subChapterSet = new Set();
     const subSubChapterSet = new Set();
-    const typeOfQuestion =new Set();
+    const typeOfQuestion = new Set();
 
     allQuestions.forEach((q) => {
       if (formData.unit && q.unit === formData.unit) chapterSet.add(q.chapter);
@@ -456,7 +458,7 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                            focus:ring-2 focus:ring-teal-400 focus:border-teal-400 outline-none"
               />
             </div> */}
-                        <div>
+            <div>
               <label className="text-sm font-medium text-gray-700">
                 Type of Question
               </label>
@@ -486,7 +488,37 @@ export default function AddQuestionForm({ createdBy = "admin@example.com" }) {
                 />
               </div>
             </div>
-
+            <div>
+              <label className="text-sm font-medium text-gray-700">
+                Select Difficulty Level Of Question
+              </label>
+              <div className="flex gap-2 mt-1">
+                <select
+                  name="difficultyLevel"
+                  value={formData.difficultyLevel}
+                  onChange={handleChange}
+                  className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
+                >
+                  <option value="">Select difficulty level</option>
+                  {dropdowns.difficultyLevel.map((ss) => (
+                    <option key={ss} value={ss}>
+                      {ss}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  name="difficultyLevel"
+                  readOnly={true}
+                  placeholder="Or enter difficulty level"
+                  value={formData.difficultyLevel}
+                  onChange={handleChange}
+                  className="w-1/2 p-2 border border-gray-300 rounded-lg bg-gray-50 
+                           focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
+                />
+              </div>
+            </div>
             {/* Submit Button */}
             <button
               type="submit"
