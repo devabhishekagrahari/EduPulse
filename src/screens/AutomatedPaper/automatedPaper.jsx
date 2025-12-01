@@ -1,72 +1,95 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
-import BASE_URL from '../../utils/api' ;
+import BASE_URL from "../../utils/api";
 
 // --- 1. DUMMY QUESTION BANK (Used for demonstration) ---
-const DUMMY_QUESTION_BANK = [
-  { "questionText": "What is the primary objective of **Knowledge Distillation** in Deep Learning?", "group": "Deep Learning", "difficulty": "Hard", "posMarks": 8, "type": "Short Answer", "correctAnswer": "Transfer knowledge from a large teacher model to a smaller student model." },
-  { "questionText": "In **Sensor Fusion** for autonomous systems, what is the term for combining data from multiple sensors?", "group": "Robotics", "difficulty": "Medium", "posMarks": 4, "type": "MCQ", "correctAnswer": "Perception Fusion" },
-  { "questionText": "Which type of **Adversarial Search** algorithm enhances Minimax by introducing a **cutoff test**?", "group": "Search", "difficulty": "Medium", "posMarks": 4, "type": "MCQ", "correctAnswer": "Depth-Limited Minimax" },
-  { "questionText": "What is the primary concept that **Dempster-Shafer Theory (DST)** adds to traditional probability theory?", "group": "Uncertainty", "difficulty": "Hard", "posMarks": 8, "type": "Short Answer", "correctAnswer": "Distinguishes between lack of belief and disbelief." },
-  { "questionText": "In **Computer Vision**, the process of identifying a boundary and assigning a label to every pixel in an image is known as:", "group": "Deep Learning", "difficulty": "Medium", "posMarks": 4, "type": "MCQ", "correctAnswer": "Semantic Segmentation" },
-  { "questionText": "The **Dependency Parsing** task in NLP aims to extract which type of structure from a sentence?", "group": "NLP", "difficulty": "Hard", "posMarks": 4, "type": "MCQ", "correctAnswer": "The grammatical relationships and dependencies between words." },
-  { "questionText": "In the context of **Robot Path Planning**, a method that uses randomized sampling to quickly explore the search space is called:", "group": "Robotics", "difficulty": "Hard", "posMarks": 4, "type": "MCQ", "correctAnswer": "Rapidly-exploring Random Tree (RRT)" },
-  { "questionText": "TRUE or FALSE: In **First-Order Logic (FOL)**, a sentence is said to be **Satisfiable**.", "group": "Knowledge Representation", "difficulty": "Easy", "posMarks": 2, "type": "True/False", "correctAnswer": "TRUE" },
-  { "questionText": "What is the primary drawback of using the **Mean Squared Error (MSE)** loss function?", "group": "Machine Learning", "difficulty": "Medium", "posMarks": 8, "type": "Short Answer", "correctAnswer": "Gradient vanishes when output is saturated, slowing learning." },
-  { "questionText": "Which type of learning environment is best characterized by the agent’s actions influencing future states?", "group": "Fundamentals", "difficulty": "Medium", "posMarks": 4, "type": "MCQ", "correctAnswer": "Sequential" }
-];
-
+// const DUMMY_QUESTION_BANK = [
+//   { "questionText": "What is the primary objective of **Knowledge Distillation** in Deep Learning?", "group": "Deep Learning", "difficulty": "Hard", "posMarks": 8, "type": "Short Answer", "correctAnswer": "Transfer knowledge from a large teacher model to a smaller student model." },
+//   { "questionText": "In **Sensor Fusion** for autonomous systems, what is the term for combining data from multiple sensors?", "group": "Robotics", "difficulty": "Medium", "posMarks": 4, "type": "MCQ", "correctAnswer": "Perception Fusion" },
+//   { "questionText": "Which type of **Adversarial Search** algorithm enhances Minimax by introducing a **cutoff test**?", "group": "Search", "difficulty": "Medium", "posMarks": 4, "type": "MCQ", "correctAnswer": "Depth-Limited Minimax" },
+//   { "questionText": "What is the primary concept that **Dempster-Shafer Theory (DST)** adds to traditional probability theory?", "group": "Uncertainty", "difficulty": "Hard", "posMarks": 8, "type": "Short Answer", "correctAnswer": "Distinguishes between lack of belief and disbelief." },
+//   { "questionText": "In **Computer Vision**, the process of identifying a boundary and assigning a label to every pixel in an image is known as:", "group": "Deep Learning", "difficulty": "Medium", "posMarks": 4, "type": "MCQ", "correctAnswer": "Semantic Segmentation" },
+//   { "questionText": "The **Dependency Parsing** task in NLP aims to extract which type of structure from a sentence?", "group": "NLP", "difficulty": "Hard", "posMarks": 4, "type": "MCQ", "correctAnswer": "The grammatical relationships and dependencies between words." },
+//   { "questionText": "In the context of **Robot Path Planning**, a method that uses randomized sampling to quickly explore the search space is called:", "group": "Robotics", "difficulty": "Hard", "posMarks": 4, "type": "MCQ", "correctAnswer": "Rapidly-exploring Random Tree (RRT)" },
+//   { "questionText": "TRUE or FALSE: In **First-Order Logic (FOL)**, a sentence is said to be **Satisfiable**.", "group": "Knowledge Representation", "difficulty": "Easy", "posMarks": 2, "type": "True/False", "correctAnswer": "TRUE" },
+//   { "questionText": "What is the primary drawback of using the **Mean Squared Error (MSE)** loss function?", "group": "Machine Learning", "difficulty": "Medium", "posMarks": 8, "type": "Short Answer", "correctAnswer": "Gradient vanishes when output is saturated, slowing learning." },
+//   { "questionText": "Which type of learning environment is best characterized by the agent’s actions influencing future states?", "group": "Fundamentals", "difficulty": "Medium", "posMarks": 4, "type": "MCQ", "correctAnswer": "Sequential" }
+// ];
 
 // --- 2. RANDOM SELECTION FUNCTION (Handles 'Select All' groups) ---
 const selectRandomQuestions = (questionBank, difficulty, count, groups) => {
   // If groups array is empty, pull all unique groups from the bank.
-  const groupsToFilterBy = (groups && groups.length > 0) 
-    ? groups 
-    : [...new Set(questionBank.map(q => q.group))];
-    
+  const groupsToFilterBy =
+    groups && groups.length > 0
+      ? groups
+      : [...new Set(questionBank.map((q) => q.group))];
+
   if (groupsToFilterBy.length === 0 || !count) return [];
-    
-  const filteredQuestions = questionBank.filter(q =>
-    q.difficulty === difficulty && groupsToFilterBy.includes(q.group)
+
+  const filteredQuestions = questionBank.filter(
+    (q) => q.difficulty === difficulty && groupsToFilterBy.includes(q.group)
   );
-  
+
   if (filteredQuestions.length < count) {
     console.warn(
-      `⚠️ Insufficient questions found for Difficulty: ${difficulty}, Topics: ${groupsToFilterBy.join(', ')}. Found ${filteredQuestions.length}, needed ${count}. Returning all available.`
+      `⚠️ Insufficient questions found for Difficulty: ${difficulty}, Topics: ${groupsToFilterBy.join(
+        ", "
+      )}. Found ${
+        filteredQuestions.length
+      }, needed ${count}. Returning all available.`
     );
-    return filteredQuestions; 
+    return filteredQuestions;
   }
 
   const shuffled = filteredQuestions.sort(() => 0.5 - Math.random());
-  
+
   return shuffled.slice(0, count);
 };
 
-
-export default function AutomatedPaper({
-  questionBankData = DUMMY_QUESTION_BANK, 
-}) {
-  
-  // 📚 LOCAL STATE MANAGEMENT 
-  const [templateName, setTemplateName] = useState('');
-  const [paperName, setPaperName] = useState('');
+export default function AutomatedPaper({}) {
+  // 📚 LOCAL STATE MANAGEMENT
+  const [templateName, setTemplateName] = useState("");
+  const [paperName, setPaperName] = useState("");
   const [totalMarks, setTotalMarks] = useState(0);
   const [hours, setHours] = useState(1);
   const [minutes, setMinutes] = useState(30);
-  const [instructions, setPaperInstructions] = useState('');
+  const [instructions, setPaperInstructions] = useState("");
   const [sections, setSections] = useState([]); // Initialized as an array
-
+  const [questionBankData, setQuestionBankData] = useState([]);
   // 🔥 Extract unique groups for the dropdown options
   const uniqueGroups = useMemo(() => {
-    const groups = questionBankData.map(q => q.group);
+    const groups = questionBankData.map((q) => q.group);
     return ["", ...new Set(groups)].sort(); // Add empty option ("") and sort
   }, [questionBankData]);
-  
+
+  useEffect(() => {
+    const fetchAllQuestions = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`${BASE_URL}/questions`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (!Array.isArray(data)) return;
+
+        setQuestionBankData(data);
+
+        // Populate units (top-level)
+        const units = [...new Set(data.map((q) => q.unit).filter(Boolean))];
+        setDropdowns((prev) => ({ ...prev, units }));
+      } catch (err) {
+        console.error("❌ Error fetching all questions:", err);
+      }
+    };
+    fetchAllQuestions();
+  }, []);
   // Calculate total marks
   useEffect(() => {
-    const total = sections.reduce((acc, section) => acc + (section.marks || 0), 0);
+    const total = sections.reduce(
+      (acc, section) => acc + (section.marks || 0),
+      0
+    );
     setTotalMarks(total);
-  }, [sections]); 
-
+  }, [sections]);
 
   const savePaperToLocal = (newPaper) => {
     try {
@@ -87,35 +110,36 @@ export default function AutomatedPaper({
     }
   };
 
-
   // Updated handler for all section inputs
-  const handleSectionChange = useCallback((index, field, value) => {
-    const updatedSections = [...sections];
-    
-    if (field === "questionCount" || field === "sectionMarks") {
-      updatedSections[index][field] = parseInt(value) || 0; 
-    } else if (field === "groupsInput") {
-      const selectedGroup = String(value || ''); 
-      updatedSections[index].groupsInput = selectedGroup; 
-      
-      // Update groups array: If selectedGroup is "", groups is [], allowing "select all" logic.
-      updatedSections[index].groups = selectedGroup ? [selectedGroup] : [];
-    } else {
-      updatedSections[index][field] = value;
-    }
-    setSections(updatedSections);
-  }, [sections]);
+  const handleSectionChange = useCallback(
+    (index, field, value) => {
+      const updatedSections = [...sections];
 
-  
+      if (field === "questionCount" || field === "sectionMarks") {
+        updatedSections[index][field] = parseInt(value) || 0;
+      } else if (field === "groupsInput") {
+        const selectedGroup = String(value || "");
+        updatedSections[index].groupsInput = selectedGroup;
+
+        // Update groups array: If selectedGroup is "", groups is [], allowing "select all" logic.
+        updatedSections[index].groups = selectedGroup ? [selectedGroup] : [];
+      } else {
+        updatedSections[index][field] = value;
+      }
+      setSections(updatedSections);
+    },
+    [sections]
+  );
+
   const handleAddSection = () => {
     const newSection = {
       name: `Section ${sections.length + 1}`,
-      difficulty: "Medium", 
+      difficulty: "Medium",
       groupsInput: "", // Default: "--- Select Topic (All) ---"
-      groups: [], 
-      questionCount: 5, 
-      sectionMarks: 4, 
-      marks: 0, 
+      groups: [],
+      questionCount: 5,
+      sectionMarks: 4,
+      marks: 0,
       questions: [],
     };
     setSections([...sections, newSection]);
@@ -125,92 +149,94 @@ export default function AutomatedPaper({
   const handleGenerateQuestions = (sectionIndex) => {
     const updatedSections = [...sections];
     const section = updatedSections[sectionIndex];
-    
+
     if (section.questionCount === 0) {
       alert("Please specify the number of questions to select.");
       return;
     }
 
     const selected = selectRandomQuestions(
-      questionBankData, 
+      questionBankData,
       section.difficulty,
       section.questionCount,
-      section.groups 
+      section.groups
     );
 
     const totalSectionMarks = selected.reduce(
-        (sum, q) => sum + (q.posMarks || section.sectionMarks), 
-        0
+      (sum, q) => sum + (q.posMarks || section.sectionMarks),
+      0
     );
-    
-    updatedSections[sectionIndex].questions = selected;
-    updatedSections[sectionIndex].questionCount = selected.length; 
-    updatedSections[sectionIndex].marks = totalSectionMarks; 
 
+    updatedSections[sectionIndex].questions = selected;
+    updatedSections[sectionIndex].questionCount = selected.length;
+    updatedSections[sectionIndex].marks = totalSectionMarks;
     setSections(updatedSections);
-    console.log(`✅ Generated ${selected.length} questions for ${section.name}. Total marks: ${totalSectionMarks}`);
+    console.log(
+      `✅ Generated ${selected.length} questions for ${section.name}. Total marks: ${totalSectionMarks}`
+    );
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  // Clean data for submission, ensuring required fields are included for server validation
-  const sectionsToSubmit = sections.map(s => ({
-    name: s.name,
-    difficulty: s.difficulty,
-    groups: s.groups,
-    questionCount: s.questionCount,
-    marks: s.marks,
-    questions: s.questions.map(q => ({ 
-        questionText: q.questionText, 
-        type: q.type, 
-        correctAnswer: q.correctAnswer, 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("paper submit data ", sections);
+    // Clean data for submission, ensuring required fields are included for server validation
+    const sectionsToSubmit = sections.map((s) => ({
+      name: s.name,
+      difficulty: s.difficulty,
+      groups: s.groups,
+      questionCount: s.questionCount,
+      marks: s.marks,
+      questions: s.questions.map((q) => ({
+        questionText: q.questionText,
+        type: q.type,
+        correctAnswer: q.correctAnswer,
+        options: q.options || [],
         // Include other essential question data
         difficulty: q.difficulty,
         group: q.group,
-        posMarks: q.posMarks || s.sectionMarks 
-    })),
-  }));
+        posMarks: q.posMarks || s.sectionMarks,
+      })),
+    }));
 
-  const paperData = {
-    templateName,
-    paperName,
-    totalMarks,
-    hours,
-    minutes,
-    instructions,
-    sections: sectionsToSubmit,
-  };
+    const paperData = {
+      templateName,
+      paperName,
+      totalMarks,
+      hours,
+      minutes,
+      instructions,
+      sections: sectionsToSubmit,
+    };
 
-  console.log("📤 Submitted Paper Data:", paperData);
-  savePaperToLocal(paperData); 
+    console.log("📤 Submitted Paper Data:", paperData);
+    savePaperToLocal(paperData);
 
-  // API Submission Logic
-  try {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`${BASE_URL}/papers`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify(paperData),
-    });
+    // API Submission Logic
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${BASE_URL}/papers`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(paperData),
+      });
 
-    const result = await response.json();
+      const result = await response.json();
 
-    if (!response.ok) {
-      console.error("❌ Failed to save paper:", result);
-      alert(`❌ Error: ${result.error || "Something went wrong"}`);
-    } else {
-      console.log("✅ Paper saved:", result);
-      alert("✅ Paper created successfully!");
+      if (!response.ok) {
+        console.error("❌ Failed to save paper:", result);
+        alert(`❌ Error: ${result.error || "Something went wrong"}`);
+      } else {
+        console.log("✅ Paper saved:", result);
+        alert("✅ Paper created successfully!");
+      }
+    } catch (error) {
+      console.error("🚨 Network error while saving paper:", error);
+      alert("🚨 Network error. Please try again later.");
     }
-  } catch (error) {
-    console.error("🚨 Network error while saving paper:", error);
-    alert("🚨 Network error. Please try again later.");
-  }
-};
+  };
 
   return (
     <form
@@ -218,11 +244,13 @@ const handleSubmit = async (e) => {
       className="p-6 w-full flex flex-col rounded-2xl bg-white shadow-sm"
     >
       <h2 className="text-xl font-bold pb-4">Generate Question Papers</h2>
-      
+
       {/* --- Paper Metadata Inputs --- */}
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="text-sm font-medium text-gray-700">🧾 Template Name</label>
+          <label className="text-sm font-medium text-gray-700">
+            🧾 Template Name
+          </label>
           <input
             type="text"
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
@@ -233,7 +261,9 @@ const handleSubmit = async (e) => {
           />
         </div>
         <div>
-          <label className="text-sm font-medium text-gray-700">📄 Paper Name</label>
+          <label className="text-sm font-medium text-gray-700">
+            📄 Paper Name
+          </label>
           <input
             type="text"
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
@@ -247,7 +277,9 @@ const handleSubmit = async (e) => {
 
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div>
-          <label className="text-sm font-medium text-gray-700">🎯 Total Marks (Auto-Calc)</label>
+          <label className="text-sm font-medium text-gray-700">
+            🎯 Total Marks (Auto-Calc)
+          </label>
           <input
             type="number"
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 outline-none"
@@ -256,9 +288,11 @@ const handleSubmit = async (e) => {
             placeholder="Auto-calculated"
           />
         </div>
-        
+
         <div>
-          <label className="text-sm font-medium text-gray-700">Duration (Hours)</label>
+          <label className="text-sm font-medium text-gray-700">
+            Duration (Hours)
+          </label>
           <input
             type="number"
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
@@ -268,9 +302,11 @@ const handleSubmit = async (e) => {
             required
           />
         </div>
-        
+
         <div>
-          <label className="text-sm font-medium text-gray-700">Duration (Minutes)</label>
+          <label className="text-sm font-medium text-gray-700">
+            Duration (Minutes)
+          </label>
           <input
             type="number"
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
@@ -283,7 +319,9 @@ const handleSubmit = async (e) => {
       </div>
 
       <div className="mb-4">
-        <label className="text-sm font-medium text-gray-700">📄 Instructions (Optional)</label>
+        <label className="text-sm font-medium text-gray-700">
+          📄 Instructions (Optional)
+        </label>
         <textarea
           rows="2"
           className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-400 focus:border-sky-400 outline-none"
@@ -305,7 +343,9 @@ const handleSubmit = async (e) => {
               <th className="border px-4 py-2 text-left">Marks/Q (Default)</th>
               <th className="border px-4 py-2 text-left">No. to Select</th>
               <th className="border px-4 py-2 text-center">Action</th>
-              <th className="border px-4 py-2 text-left">Total Section Marks</th>            
+              <th className="border px-4 py-2 text-left">
+                Total Section Marks
+              </th>
               <th className="border px-4 py-2 text-left">Assigned Questions</th>
             </tr>
           </thead>
@@ -318,16 +358,20 @@ const handleSubmit = async (e) => {
                     type="text"
                     className="w-full px-2 py-1 border rounded"
                     value={section.name}
-                    onChange={(e) => handleSectionChange(index, "name", e.target.value)}
+                    onChange={(e) =>
+                      handleSectionChange(index, "name", e.target.value)
+                    }
                   />
                 </td>
-                
+
                 {/* 2. Difficulty Selection */}
                 <td className="border px-2 py-1 max-w-[100px]">
                   <select
                     className="w-full px-2 py-1 border rounded bg-white"
                     value={section.difficulty}
-                    onChange={(e) => handleSectionChange(index, "difficulty", e.target.value)}
+                    onChange={(e) =>
+                      handleSectionChange(index, "difficulty", e.target.value)
+                    }
                   >
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
@@ -339,10 +383,12 @@ const handleSubmit = async (e) => {
                 <td className="border px-2 py-1 max-w-[200px]">
                   <select
                     className="w-full px-2 py-1 border rounded bg-white"
-                    value={section.groupsInput || ''}
-                    onChange={(e) => handleSectionChange(index, "groupsInput", e.target.value)}
+                    value={section.groupsInput || ""}
+                    onChange={(e) =>
+                      handleSectionChange(index, "groupsInput", e.target.value)
+                    }
                   >
-                    {uniqueGroups.map(group => (
+                    {uniqueGroups.map((group) => (
                       <option key={group} value={group}>
                         {group || "--- Select Topic (All) ---"}
                       </option>
@@ -357,26 +403,34 @@ const handleSubmit = async (e) => {
                     className="w-full px-2 py-1 border rounded"
                     placeholder="4"
                     value={section.sectionMarks}
-                    onChange={(e) => handleSectionChange(index, "sectionMarks", e.target.value)}
+                    onChange={(e) =>
+                      handleSectionChange(index, "sectionMarks", e.target.value)
+                    }
                   />
                 </td>
-                
+
                 {/* 5. Number of Questions to Select */}
                 <td className="border px-2 py-1 max-w-[80px]">
                   <input
                     type="number"
                     className="w-full px-2 py-1 border rounded"
                     value={section.questionCount}
-                    onChange={(e) => handleSectionChange(index, "questionCount", e.target.value)}
+                    onChange={(e) =>
+                      handleSectionChange(
+                        index,
+                        "questionCount",
+                        e.target.value
+                      )
+                    }
                   />
                 </td>
-                
+
                 {/* 6. Action Button: GENERATE */}
                 <td className="border px-2 py-1 text-center">
                   <button
                     type="button"
                     onClick={() => handleGenerateQuestions(index)}
-                    className="bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded transition"
+                    className="bg-blue-500 hover:bg-blue-600 text-black text-xs font-semibold px-3 py-1 rounded transition"
                   >
                     Generate
                   </button>
@@ -391,7 +445,7 @@ const handleSubmit = async (e) => {
                     readOnly
                   />
                 </td>
-                
+
                 {/* 8. Assigned Questions List */}
                 <td className="border px-2 py-1 max-w-[200px] overflow-auto">
                   {section.questions?.length > 0 ? (
@@ -406,7 +460,9 @@ const handleSubmit = async (e) => {
                       ))}
                     </ul>
                   ) : (
-                    <span className="text-gray-400 italic text-xs">Click Generate</span>
+                    <span className="text-gray-400 italic text-xs">
+                      Click Generate
+                    </span>
                   )}
                 </td>
               </tr>
