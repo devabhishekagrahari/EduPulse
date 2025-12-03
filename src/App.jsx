@@ -13,6 +13,7 @@ import { QuestionList }from './screens/Paper/components/QuestionList/QuestionLis
 //import { QuestionList }from './screens/Paper/components/questionList'
 import ViewPapers from './screens/Paper/paperList'
 import AutomatedPaper from './screens/AutomatedPaper/automatedPaper'
+import StudentsPerformance from './screens/Students/studentsPerformance'
  
 function App() {
   return ( 
@@ -31,6 +32,7 @@ function App() {
         <Route path='/generate-paper' element={<BaseLayout><GeneratePaper/></BaseLayout>}/>
         <Route path='/view-paper' element={<BaseLayout><ViewPapers/></BaseLayout>}/>
         <Route path='/automated-paper' element={<BaseLayout><AutomatedPaper/></BaseLayout>}/>
+        <Route path='/students' element={<BaseLayout><StudentsPerformance/></BaseLayout>}/>
       </Routes>
       
     </BrowserRouter>

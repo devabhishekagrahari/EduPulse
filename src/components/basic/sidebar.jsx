@@ -4,8 +4,7 @@ import {
   PlusCircle,
   Search,
   LayoutDashboard,
-  User,
-  Settings,
+  Users,
   LogOut,
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -67,6 +66,14 @@ export default function Sidebar({ isOpen }) {
         >
           <LayoutDashboard size={20} className="text-blue-400" />
           {isOpen && <span className="text-zinc-800">Generate Random Quiz</span>}
+        </Link>
+
+        <Link
+          to="/students"
+          className="flex items-center space-x-2 bg-white rounded-xl p-3 hover:bg-teal-50"
+        >
+          <Users size={20} className="text-blue-400" />
+          {isOpen && <span className="text-zinc-800">Students</span>}
         </Link>
       </nav>
 
